@@ -2,12 +2,21 @@ package com.example.course.entities;
 
 import java.io.Serializable;
 
-//usar o Serializable para que os objetos possam trafegar na rede
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+//usar o Serializable para que os objetos possam trafegar na rede
+//annotation
+@Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//atributos
+	//annotation para indicar qual será a chave primaria da tabela do BD (id)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
