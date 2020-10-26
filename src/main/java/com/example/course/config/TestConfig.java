@@ -16,7 +16,7 @@ import com.example.course.repositories.UserRepository;
 public class TestConfig implements CommandLineRunner {
 	
 	//declarar atributo
-	@Autowired  //annotation
+	@Autowired  //annotation para que o spring faça a injeção de dependência
 	private UserRepository userRepository;
 	
 	
