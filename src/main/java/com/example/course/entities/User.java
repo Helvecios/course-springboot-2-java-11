@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //usar o Serializable para que os objetos possam trafegar na rede
 //annotation
 @Entity
@@ -29,6 +31,7 @@ public class User implements Serializable {
 	private String password;
 	
 	//associação
+	@JsonIgnore //annotation para evitar que a associação vire uma mão dupla
 	@OneToMany (mappedBy = "client") //um cliente para muitos pedidos
 	private List<Order> orders = new ArrayList<>();
 	
