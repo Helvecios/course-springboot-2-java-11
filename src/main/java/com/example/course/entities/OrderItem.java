@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.example.course.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //usar o Serializable para que os objetos possam trafegar na rede
 //annotation
@@ -17,8 +18,8 @@ public class OrderItem implements Serializable {
 	
 	//atributos
 	@EmbeddedId
-	private OrderItemPK id;
-	private Integer quantaty;
+	private OrderItemPK id = new OrderItemPK(); //instanciar o OrderItemPK
+	private Integer quantity;
 	private Double price;
 	
 	//construtor padrão
@@ -26,16 +27,16 @@ public class OrderItem implements Serializable {
 	}
 
 	//construtor com argumentos
-	public OrderItem(Order order, Product product, Integer quantaty, Double price) {
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		super();
 		id.setOrder(order);
 		id.setProduct(product);
-		this.quantaty = quantaty;
+		this.quantity = quantity;
 		this.price = price;
 	}
 
 	//getters and Setters
-	
+	@JsonIgnore //annotation para evitar que a associação vire uma mão dupla
 	public Order getOrder() {
 		return id.getOrder();
 	}
@@ -52,12 +53,12 @@ public class OrderItem implements Serializable {
 		id.setProduct(product);
 	}
 	
-	public Integer getQuantaty() {
-		return quantaty;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantaty(Integer quantaty) {
-		this.quantaty = quantaty;
+	public void setQuantaty(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Double getPrice() {
