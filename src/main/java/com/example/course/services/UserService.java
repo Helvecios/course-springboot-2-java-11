@@ -36,4 +36,18 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
+	//método para atualizar usuário no BD
+	public User update(Long id, User obj) {
+		User entity = repository.getOne(id); //prepara o obj monitorado para vc poder mexer
+		updateData(entity, obj); //atualiza os dados do entity baseado nos dados que chegaram no obj
+		return repository.save(entity); //salvar no BD o meu entity
+	}
+	
+	//método updateData
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
+	
 }

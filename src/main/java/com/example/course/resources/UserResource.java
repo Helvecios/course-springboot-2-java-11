@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,7 @@ public class UserResource {
 	@PostMapping
 	//método para salvar um usuário no BD
 	public ResponseEntity<User> insert(@RequestBody User obj) {
-		obj = service.insert(obj); //para executar o método insert no service
+		obj = service.insert(obj); //para executar o método insert do service
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
@@ -54,7 +55,14 @@ public class UserResource {
 	@DeleteMapping(value = "/{id}") //annotation
 	//método para deletar um usuário do BD
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id); //para executar o método delete no service
+		service.delete(id); //para executar o método delete do service
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{id}") //annotation
+	//método para atualizar o usuário
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj ) {
+		obj = service.update(id, obj); //para executar o método update do service
+		return ResponseEntity.ok().body(obj);
 	}
 }
