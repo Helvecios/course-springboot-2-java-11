@@ -26,4 +26,9 @@ public class UserService {
 		return obj.get();
 	}
 	
+	//método para salvar um usuário no BD
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
+	
 }
