@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.example.course.entities.enums.OrderStatus;
@@ -43,7 +45,11 @@ public class Order implements Serializable {
 	//inicar uma coleção
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items =new HashSet<>();
-		
+	
+	//associações (um pagamento tem um pedido e um pedido tem um pagamento
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //um para um
+	private Payment payment;
+	
 	//Construtor padrão
 	public Order() {
 	}
@@ -85,6 +91,14 @@ public class Order implements Serializable {
 
 	public User getClient() {
 		return client;
+	}
+	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	public void setClient(User client) {
