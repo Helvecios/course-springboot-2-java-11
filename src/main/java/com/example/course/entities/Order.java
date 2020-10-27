@@ -108,7 +108,17 @@ public class Order implements Serializable {
 	public Set<OrderItem> getItems() {
 		return items;
 	}
-
+	
+	//método para calcular o total do pedido
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
+	
+	
 	//hashCode and Equals para comparar objetos
 	@Override
 	public int hashCode() {

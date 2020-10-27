@@ -69,6 +69,11 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
+	//método para calcular o subtotal do item
+	public Double getSubTotal() {
+		return price * quantity;
+	}
+	
 	
 	//hashCode and equals para comparar objetos
 	@Override

@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //usar o Serializable para que os objetos possam trafegar na rede
 //annotation
 @Entity
@@ -26,6 +28,7 @@ public class Payment implements Serializable {
 	private Instant moment;
 	
 	//associações (um pagamento tem um pedido e um pedido tem um pagamento
+	@JsonIgnore //annotation para evitar que a associação vire uma mão dupla
 	@OneToOne //um para um
 	@MapsId
 	private  Order order;
