@@ -3,6 +3,8 @@ package com.example.course.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,9 +51,14 @@ public class UserService {
 	
 	//método para atualizar usuário no BD
 	public User update(Long id, User obj) {
+		try {
 		User entity = repository.getOne(id); //prepara o obj monitorado para vc poder mexer
 		updateData(entity, obj); //atualiza os dados do entity baseado nos dados que chegaram no obj
 		return repository.save(entity); //salvar no BD o meu entity
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		
 	}
 	
 	//método updateData
