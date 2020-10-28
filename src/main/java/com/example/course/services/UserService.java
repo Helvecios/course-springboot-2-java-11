@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.course.entities.User;
 import com.example.course.repositories.UserRepository;
+import com.example.course.services.exceptions.ResourceNotFoundException;
 
 @Service //annotation
 public class UserService {
@@ -23,7 +24,7 @@ public class UserService {
 	 //método para retornar o usuário pelo id
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id)); //função lambda
 	}
 	
 	//método para salvar um usuário no BD
